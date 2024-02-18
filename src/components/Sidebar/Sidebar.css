@@ -1,0 +1,45 @@
+.Sidebar_container {
+  background-color: #122d35;
+  width: 19rem;
+  height: 100vh;
+}
+
+.Sidebar {
+  background: #122d35;
+  margin: 0 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.Sidebar_logo {
+  width: fit-content;
+  margin: auto;
+  margin-bottom: 2.3rem;
+  padding-top: 2.25rem;
+}
+
+.divider {
+  width: calc(100% - 1.5rem);
+  height: 1px;
+  background: #686868;
+  margin-bottom: 1.25rem;
+}
+
+.Sidebar_rotas {
+  margin-top: 1.75rem;
+}
+
+.Sidebar_rotas h4 {
+  color: #d5e0ff;
+  margin-bottom: .5rem;
+}
+
+.Sidebar_rotas a {
+  color: #fafafa;
+  margin-bottom: .75rem;
+  text-decoration: none;
+}
+
+.Sidebar_rotas a:hover {
+  border: 0;
+}

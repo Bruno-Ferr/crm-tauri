@@ -1,0 +1,62 @@
+.Collaborator_container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #2e2b3f;
+
+  h3 {
+    margin: 2.5rem 0 4rem;
+  }
+}
+
+.Collaborator_form {
+  margin-bottom: 4rem;
+}
+
+.Collaborator_table {
+  width: 1300px;
+}
+
+.colab_name {
+  margin: 0 2rem 0 .5rem;
+}
+
+.colab_cpf {
+  margin-left: .5rem;
+}
+
+.colab_birth {
+  margin: 1rem 1rem 0 .5rem;
+  width: 7rem;
+}
+
+.colab_firstDay {
+  margin-left: .5rem;
+  width: 7rem;
+}
+
+.colab_role {
+  margin: 1rem 1rem 1rem .5rem;
+  width: 10rem;
+  padding: .2rem;
+  border-radius: 5px;
+}
+
+.servicesAndScheduleContainer {
+  margin-bottom: 1rem;
+}
+
+.colab_services {
+  margin: 0 1rem 0 .5rem;
+  width: 10rem;
+}
+
+.colab_schedule {
+  margin-left: .5rem;
+  width: 8rem;
+}
+
+button {
+  cursor: pointer;
+}

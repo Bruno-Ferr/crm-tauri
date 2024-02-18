@@ -1,0 +1,53 @@
+.Schedule_container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #2e2b3f;
+}
+
+.Schedule_filters {
+  margin: 1.75rem 0 1rem 0;
+  padding-bottom: 40px;
+  width: 1300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Schedule_table {
+  width: 1300px;
+    border-radius: 5px;
+    border: none;
+    border-collapse: collapse;
+    max-width: 100%;
+    white-space: nowrap;
+    background-color: white;
+    color: #181818;
+}
+
+.Schedule_table th,
+.Schedule_table td {
+  text-align: center;
+  padding: 8px;
+}
+
+.Schedule_table td {
+  border-right: 2px solid #2e2b3f;
+  border-top: 2px solid #2e2b3f;
+  font-size: 14px;
+}
+
+.Schedule_table th {
+  background: #693d9b;
+  color: #fff;
+}
+
+.searchSchedule {
+  margin-right: 1rem;
+  width: 18rem;
+}
+
+.date {
+  width: 7rem;
+}
