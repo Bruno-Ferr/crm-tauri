@@ -30,34 +30,37 @@ interface AuthProviderProps {
 export function AuthProvider({children}: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null)
 
-  // async function verifySigin() {
-  //   const token = await session.defaultSession.cookies.get({url: 'http://localhost:5173/'})
-  //   console.log(token)
-  //   if(!token) {
-  //     redirect('/');
-  //     //toast
-  //     throw new Error('No user found');
-  //   }
-  //   const res = await axios.get('http://localhost:3333/recoverUserByToken', {headers : {Authorization: `Bearer ${token}`}})      
+  async function verifySigin() {
+    const token = localStorage.getItem("crm_authToken")
 
-  //   setUser(res.data.user)
-  //   redirect('/home')  
-  //    //concertar não poder entrar sem token/login
-  // }
+    if(!token) {
+      redirect('/');
+      //toast
+      throw new Error('No user found');
+    }
+    const res = await axios.get('http://localhost:3333/recoverUserByTokenAA', {headers : {Authorization: token}})      
+    console.log(res.data.user)
+    setUser(res.data.user)
+    redirect('/schedule')  
+     //concertar não poder entrar sem token/login
+  }
 
-  // useEffect(() => {
-  //   verifySigin()
-  // }, [])
+  useEffect(() => {
+    verifySigin()
+  }, [])
 
   async function signIn(data: signInProps) {
+    console.log(data)
     const res = await axios.post("http://localhost:3333/login", data)  
 
     try {
+      console.log(res.data)
+      localStorage.setItem("crm_authToken", `Bearer ${res.data.token}`)
       // const cookie = { url: 'http://localhost:5173/', name: 'crm_authToken', value: res.data.token }
       // session.defaultSession.cookies.set(cookie)
       setUser(res.data.userExists)
 
-      redirect('/home')
+      redirect('/schedule')
     } catch (err) { //concertar não poder entrar sem token/login
       throw new Error('No user found')
       //toast

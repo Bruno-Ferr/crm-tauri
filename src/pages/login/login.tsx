@@ -2,13 +2,14 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 //import { AuthContext } from "@renderer/contexts/AuthContext";
 import { Button, Flex, Form, Input } from "antd";
 import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 //import { Navigate, redirect } from "react-router-dom";
 
 export default function Login(): JSX.Element {
-  //const {signIn} = useContext(AuthContext)
+  const {signIn} = useContext(AuthContext)
 
   const onFinish = async (values: any) => {
-    //await signIn(values)
+    await signIn(values)
   };
   
   const onFinishFailed = (errorInfo: any) => {
