@@ -16,7 +16,7 @@ export default function Sidebar(): JSX.Element {
         <div className='divider'></div>
         <Link to="/workdays" style={{textDecoration: 'none'}}>Funcionamento</Link> {/* Insere os dias de trabalho, edita, deleta. Pode conter os serviços */}
         <Link to="/services">Serviços</Link> {/* Insere os serviços, edita, deleta  */}
-        <Link to="/collaborators">Colaboradores</Link> {/* Insere os colaboradores, edita, deleta */}
+        <Link to="/collaborators" >Colaboradores</Link> {/* Insere os colaboradores, edita, deleta */}
       </div>
     </aside>
   )

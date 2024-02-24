@@ -64,7 +64,7 @@ export default function Schedule(): JSX.Element {
                 <tr > 
                   <td>{schedule.agendamento_cliente}</td>
                   <td>{schedule.agendamento_veiculo}</td>
-                  <td>{schedule.agendamento_veiculo}</td>
+                  <td>{schedule.agendamento_veiculo_placa}</td>
                   <td>{schedule.agendamento_servico}</td>
                   <td>{dayjs(schedule.agendamento_data).format("YYYY-MM-DD HH:MM")}</td>
                   {

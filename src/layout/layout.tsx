@@ -20,7 +20,7 @@ export default function Layout(): JSX.Element {
         <Route path="/schedule" element={<Schedule />} />
         <Route path="/workdays" element={<Workdays />} />
         <Route path="/services" element={<Services />} />
-        <Route path="/collaborators" element={<Collaborators />} />
+        {/* <Route path="/collaborators" element={<Collaborators />} /> */}
       </Routes>
       {/* <Workdays />
       <Services />
