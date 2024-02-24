@@ -4,7 +4,8 @@ import { useForm } from "react-hook-form";
 import { api } from '../../lib/axios';
 import MyUpload from '../upload/upload';
 import './styles.css'
-import { Upload, UploadFile } from 'antd';
+import { UploadFile } from 'antd';
+import dayjs from 'dayjs';
 
 Modal.setAppElement('#root');
 
@@ -32,30 +33,39 @@ export default function ModalCustomized({modalIsOpen, fecharModal, schedule, mod
     handleSubmit,
     control,
     watch,
+    setValue,
     formState: { isSubmitting, errors },
   } = useForm<OSValues>()
 
   const onSubmit = async (data: OSValues) => {
-    const options = {
-      services: [{
-        service: "a79779e2-d1ab-46a3-a91e-5af64d4bf778",
-        instrucoes_especiais: ""
-      }], //data.servicos, 
-      client: data.cliente, 
-      vehicle: data.veiculo, 
-      arrived: data.chegada,
-      fileList
+    if(schedule.id === null) {
+      const options = {
+        services: [{
+          service: "a79779e2-d1ab-46a3-a91e-5af64d4bf778",
+          instrucoes_especiais: ""
+        }], //data.servicos, 
+        client: data.cliente, 
+        vehicle: data.veiculo, 
+        arrived: dayjs(data.chegada).format("YYYY-MM-DD HH:MM"),
+        fileList
+      }
+
+      await api.post(`/create-os/${data.schedule}`, options) 
+      //toast('Ordem de serviço criada')
+    } else {
+      const today = dayjs(new Date()).format('YYYY-MM-DD')
+      const options = { 
+        inicio: new Date(`${today}, ${data.inicio}`),
+        conclusao: data.conclusao ? new Date(`${today}, ${data.conclusao}`) : null,
+        pagamento: data.pagamento,
+        retirada: data.retirada ? new Date(`${today}, ${data.retirada}`) : null,
+        prazo_entrega: data.prazoDeEntrega ? new Date(`${today}, ${data.prazoDeEntrega}`) : null, 
+        status: data.status
+      }
+
+      await api.put(`/edit-os/${data.schedule}`, options)
+      //toast('Ordem de serviço atualizada')
     }
-
-    console.log(options)
-
-    // if(schedule.id === null) {
-    //   await api.post(`/create-os/${data.schedule}`, options) 
-    //   //toast('Ordem de serviço criada')
-    // } else {
-    //   await api.put(`/edit-os/${data.schedule}`, options)
-    //   //toast('Ordem de serviço atualizada')
-    // }
 
      fecharModal() 
   }
@@ -90,15 +100,15 @@ export default function ModalCustomized({modalIsOpen, fecharModal, schedule, mod
             <div className="div-5">
               <div className="div-6">
                 <label className="div-7" htmlFor="">Chegada:</label>
-                <input className="div-8" type="text" value={schedule.chegada || JSON.stringify(new Date())} {...register("chegada")} />
+                <input className="div-8" type="text" value={dayjs(schedule.agendamento_data).format("YYYY-MM-DD HH:MM") || JSON.stringify(new Date())} {...register("chegada")} />
               </div>
               <div className='div-6'>
                   <label className="div-7" htmlFor="">Inicio:</label>
-                  <input className="div-8" type="text" value={schedule.inicio || ""} {...register("inicio")} />
+                  <input className="div-8" type="text" defaultValue={schedule.inicio || ""} onClick={() => setValue('inicio', `${dayjs(new Date()).hour().toString()}:${dayjs(new Date()).minute().toString()}`)} {...register("inicio")} />
               </div>
               <div className='div-6'>
                   <label className="div-7" htmlFor="">Conclusão:</label>
-                  <input className="div-8" type="text" value={schedule.conclusao || ""} {...register("conclusao")} />
+                  <input className="div-8" type="text" defaultValue={schedule.conclusao || ""} onClick={() => setValue('conclusao', `${dayjs(new Date()).hour().toString()}:${dayjs(new Date()).minute().toString()}`)} {...register("conclusao")} />
               </div>
             </div>
             <div className='columns'>
@@ -115,22 +125,22 @@ export default function ModalCustomized({modalIsOpen, fecharModal, schedule, mod
                       <div className='div-6'> 
 
                         <label className="div-7" htmlFor="">Prazo de entrega:</label>
-                        <input className="div-8" type="text" value={schedule.prazo_entrega || ""} {...register("prazoDeEntrega")} />
+                        <input className="div-8" type="text" defaultValue={schedule.prazo_entrega || ""} {...register("prazoDeEntrega")} />
                       
                       </div>
                       <div className='div-6'>
                         <label className="div-7" htmlFor="">Retirada:</label>
-                        <input className="div-8" type="text" value={schedule.retirada || ""}  {...register("retirada")} />
+                        <input className="div-8" type="text" defaultValue={schedule.retirada || ""} onClick={() => setValue('retirada', `${dayjs(new Date()).hour().toString()}:${dayjs(new Date()).minute().toString()}`)} {...register("retirada")} />
                       </div>
                     </div>
                     <div className='div-5'>
                       <div className='div-6'>
                         <label className="div-7" htmlFor="">Pagamento:</label>
-                        <input className="div-8" type="text" value={schedule.pagamento || ""}  {...register("pagamento")} />
+                        <input className="div-8" type="text" defaultValue={schedule.pagamento || ""}  {...register("pagamento")} />
                       </div>
                       <div className='div-6'>
                         <label className="div-7" htmlFor="">Status:</label>
-                        <input className="div-8" type="text" value={schedule.status || ""}  {...register("status")} />
+                        <input className="div-8" type="text" defaultValue={schedule.status || ""}  {...register("status")} />
                       </div>
                     </div>
                   </div>

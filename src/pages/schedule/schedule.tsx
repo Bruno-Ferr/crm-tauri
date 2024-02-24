@@ -9,7 +9,7 @@ import { Flex } from "antd";
 Modal.setAppElement('#root');
 
 export default function Schedule(): JSX.Element {
-  const [date, setDate] = useState(dayjs('2023-10-25').format('YYYY-MM-DD')) 
+  const [date, setDate] = useState(dayjs(new Date()).format('YYYY-MM-DD')) 
   const [searchInput, setSearchInput] = useState('')
   const [schedulesList, setSchedulesList] = useState<any>([])
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -17,8 +17,7 @@ export default function Schedule(): JSX.Element {
 
   const fetchSchedules = async () => {
     const {data: services}: any = await api.get(`/get-Schedule?date=${date}`)
-    console.log(services) //Tratar services, valores nulos precisam de valores
-    
+
     setSchedulesList(services); // "functional updates" or "updater functions"
   }
 
@@ -67,7 +66,7 @@ export default function Schedule(): JSX.Element {
                   <td>{schedule.agendamento_veiculo}</td>
                   <td>{schedule.agendamento_veiculo}</td>
                   <td>{schedule.agendamento_servico}</td>
-                  <td>28-10-2023 11:00</td>
+                  <td>{dayjs(schedule.agendamento_data).format("YYYY-MM-DD HH:MM")}</td>
                   {
                     schedule.id === null ? (
                       <td><button onClick={() => abrirModal(schedule.agendamento_id)}>Criar OS</button></td>
