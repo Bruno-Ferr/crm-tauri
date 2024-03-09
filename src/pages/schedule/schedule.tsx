@@ -17,7 +17,7 @@ export default function Schedule(): JSX.Element {
 
   const fetchSchedules = async () => {
     const {data: services}: any = await api.get(`/get-Schedule?date=${date}`)
-
+    
     setSchedulesList(services); // "functional updates" or "updater functions"
   }
 
@@ -62,8 +62,8 @@ export default function Schedule(): JSX.Element {
             return (
               <React.Fragment key={schedule.agendamento_id}>
                 <tr > 
-                  <td>{schedule.agendamento_cliente}</td>
-                  <td>{schedule.agendamento_veiculo}</td>
+                  <td>{schedule.agendamento_cliente_nome}</td>
+                  <td>{schedule.agendamento_veiculo_modelo}</td>
                   <td>{schedule.agendamento_veiculo_placa}</td>
                   <td>{schedule.agendamento_servico}</td>
                   <td>{dayjs(schedule.agendamento_data).format("YYYY-MM-DD HH:MM")}</td>
